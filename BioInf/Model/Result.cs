@@ -8,7 +8,7 @@ namespace BioInf.Model
 {
     public class Result
     {
-        public int[] sequenceIndexes { get; private set; }
+        public int[] sequenceIndexes { get; set; }
 
 
     }

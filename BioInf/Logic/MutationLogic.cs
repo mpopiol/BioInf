@@ -11,7 +11,19 @@ namespace BioInf.Logic
     {
         public static Result Mutate(Result item)
         {
-            throw new NotImplementedException();
+            Result result = new Result()
+            {
+                sequenceIndexes = item.sequenceIndexes.ToArray()
+            };
+
+            int index1 = Global.Random.Next(result.sequenceIndexes.Length - 1);
+            int index2 = Global.Random.Next(result.sequenceIndexes.Length - 1);
+
+            int tmp = result.sequenceIndexes[index1];
+            result.sequenceIndexes[index1] = result.sequenceIndexes[index2];
+            result.sequenceIndexes[index2] = tmp;
+
+            return result;
         }
     }
 }

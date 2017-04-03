@@ -45,6 +45,7 @@
     <Compile Include="Logic\CrossingLogic.cs" />
     <Compile Include="Logic\EvaluationLogic.cs" />
     <Compile Include="Logic\MutationLogic.cs" />
+    <Compile Include="Model\Global.cs" />
     <Compile Include="Model\Result.cs" />
     <Compile Include="Model\Nucleotid.cs" />
     <Compile Include="Program.cs" />

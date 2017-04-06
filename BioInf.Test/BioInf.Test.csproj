@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BioInf.Test</RootNamespace>
     <AssemblyName>BioInf.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +32,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
+      <HintPath>..\net-4.5\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework.tests">
+      <HintPath>..\net-4.5\nunit.framework.tests.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.testdata">
+      <HintPath>..\net-4.5\nunit.testdata.dll</HintPath>
+    </Reference>
+    <Reference Include="nunitlite">
+      <HintPath>..\net-4.5\nunitlite.dll</HintPath>
+    </Reference>
+    <Reference Include="slow-nunit-tests">
+      <HintPath>..\net-4.5\slow-nunit-tests.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\EvaluationLogicTest.cs" />
     <Compile Include="NucleotidTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -31,20 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\net-4.5\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework.tests">
-      <HintPath>..\net-4.5\nunit.framework.tests.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.testdata">
-      <HintPath>..\net-4.5\nunit.testdata.dll</HintPath>
-    </Reference>
-    <Reference Include="nunitlite">
-      <HintPath>..\net-4.5\nunitlite.dll</HintPath>
-    </Reference>
-    <Reference Include="slow-nunit-tests">
-      <HintPath>..\net-4.5\slow-nunit-tests.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -68,6 +56,9 @@
       <Project>{1EA41294-AB5B-419A-B1B3-E38AE007D163}</Project>
       <Name>BioInf</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

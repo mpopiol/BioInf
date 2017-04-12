@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BioInf
 {
@@ -24,7 +25,7 @@ namespace BioInf
                 };
             }
             //mutate
-            for (int j = 0; j < 100; j++)
+            for (int j = 0; j < 10000; j++)
             {
                 for (int i = 50; i < 100; i++)
                 {
@@ -36,13 +37,17 @@ namespace BioInf
                     population[i] = CrossingLogic.Cross(population[Global.Random.Next(49)], population[Global.Random.Next(49)]);
                 }
                 //evluate
-                for (int i = 0; i < 200; i++)
+                Parallel.For(0, 200, i => 
                 {
                     population[i].EvaluationPoints = EvaluationLogic.Evaluate(population[i]);
-                }
+                });
+                //for (int i = 0; i < 200; i++)
+                //{
+                //    population[i].EvaluationPoints = EvaluationLogic.Evaluate(population[i]);
+                //}
 
                 //first 50 are the best ones
-                population = population.OrderBy(p => p.EvaluationPoints).ToArray();
+                population = population.OrderBy(p => p.EvaluationPoints * -1).ToArray();
                 System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}", j, population[0].EvaluationPoints));
             }
         }
@@ -59,7 +64,7 @@ namespace BioInf
                 };
                 nucleotidList.Add(nucl);
             }
-            Global.ErrorToleration = 1;
+            Global.ErrorToleration = 2;
             Global.MaxLength = 209;
             Global.Nucleotids = nucleotidList;
         }

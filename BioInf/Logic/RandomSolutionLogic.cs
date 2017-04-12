@@ -7,10 +7,10 @@ namespace BioInf.Logic
     {
         public static int[] GenerateRandomSolution()
         {
-            int[] result = new int[Global.Nucleotids.FirstOrDefault().Sequence.Length];
+            int[] result = new int[Global.Nucleotids.Count];
             for (int i = 0; i < result.Length; i++)
             {
-                result[i] = i;
+                result[i] = i + 1;
             }
             //now shuffle
             return result.OrderBy(i => Global.Random.Next()).ToArray();

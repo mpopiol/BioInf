@@ -12,12 +12,15 @@ namespace BioInf.Logic
                 sequenceIndexes = item.sequenceIndexes.ToArray()
             };
 
-            int index1 = Global.Random.Next(result.sequenceIndexes.Length - 1);
-            int index2 = Global.Random.Next(result.sequenceIndexes.Length - 1);
+            for (int i = 0; i < 3; i++)
+            {
+                int index1 = Global.Random.Next(result.sequenceIndexes.Length - 1);
+                int index2 = Global.Random.Next(result.sequenceIndexes.Length - 1);
 
-            int tmp = result.sequenceIndexes[index1];
-            result.sequenceIndexes[index1] = result.sequenceIndexes[index2];
-            result.sequenceIndexes[index2] = tmp;
+                int tmp = result.sequenceIndexes[index1];
+                result.sequenceIndexes[index1] = result.sequenceIndexes[index2];
+                result.sequenceIndexes[index2] = tmp;
+            }
 
             return result;
         }

@@ -38,7 +38,7 @@ namespace BioInf.Logic
             int itemToCrossCounter = 0;
             while(resultCounter < itemToCross.sequenceIndexes.Length)
             {
-                if (result.sequenceIndexes.Take(resultCounter).Contains(itemToCross.sequenceIndexes[itemToCrossCounter]))
+                if (!result.sequenceIndexes.Take(resultCounter).Contains(itemToCross.sequenceIndexes[itemToCrossCounter]))
                 {
                     result.sequenceIndexes[resultCounter++] = itemToCross.sequenceIndexes[itemToCrossCounter];
                 }

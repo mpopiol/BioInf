@@ -1,4 +1,5 @@
 ﻿using BioInf.Model;
+using System.Linq;
 
 namespace BioInf.Logic
 {
@@ -11,7 +12,9 @@ namespace BioInf.Logic
             {
                 int subResult = EvaluationLogic.HandleFromPositionToMax(item, i);
                 if (subResult > max)
+                {
                     max = subResult;
+                }
             }
             return max;
         }

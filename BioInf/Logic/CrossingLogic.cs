@@ -12,7 +12,7 @@ namespace BioInf.Logic
                 sequenceIndexes = new int[item1.sequenceIndexes.Length]
             };
 
-            int crossingPoint = Global.Random.Next(1, item1.sequenceIndexes.Length - 2);
+            int crossingPoint = Global.Random.Next(item1.sequenceIndexes.Length / 6, 5 * (item1.sequenceIndexes.Length / 6));
 
             FillBeginning(ref result, item1, crossingPoint);
             FillEnding(ref result, item2, crossingPoint);

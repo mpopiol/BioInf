@@ -1,11 +1,7 @@
 ﻿using BioInf.Logic;
 using BioInf.Model;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BioInf.Test.Logic
 {
@@ -15,8 +11,8 @@ namespace BioInf.Test.Logic
         [Test]
         public void Evaluation_BasicExample()
         {
-            Global.Nucleotids = new List<Nucleotid>() 
-            { 
+            Global.Nucleotids = new List<Nucleotid>()
+            {
                 new Nucleotid()
                 {
                     Sequence = "ATTTT"
@@ -39,7 +35,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[]{4,3,2,1}
+                sequenceIndexes = new int[] { 4, 3, 2, 1 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(4, result);
@@ -48,8 +44,8 @@ namespace BioInf.Test.Logic
         [Test]
         public void Evaluation_BasicExample2()
         {
-            Global.Nucleotids = new List<Nucleotid>() 
-            { 
+            Global.Nucleotids = new List<Nucleotid>()
+            {
                 new Nucleotid()
                 {
                     Sequence = "ATTTT"
@@ -81,8 +77,8 @@ namespace BioInf.Test.Logic
         [Test]
         public void Evaluation_BasicExample3()
         {
-            Global.Nucleotids = new List<Nucleotid>() 
-            { 
+            Global.Nucleotids = new List<Nucleotid>()
+            {
                 new Nucleotid()
                 {
                     Sequence = "ATTTT"
@@ -111,14 +107,11 @@ namespace BioInf.Test.Logic
             Assert.AreEqual(2, result);
         }
 
-        
-
         [Test]
         public void Evaluation_BasicExample4()
         {
-            Global.Nucleotids = new List<Nucleotid>() 
-            { 
-                
+            Global.Nucleotids = new List<Nucleotid>()
+            {
                 new Nucleotid()
                 {
                     Sequence = "GGTTT"
@@ -145,7 +138,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 4,5,1,2,3 }
+                sequenceIndexes = new int[] { 4, 5, 1, 2, 3 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(3, result);
@@ -154,9 +147,8 @@ namespace BioInf.Test.Logic
         [Test]
         public void Evaluation_BasicExample5()
         {
-            Global.Nucleotids = new List<Nucleotid>() 
-            { 
-                
+            Global.Nucleotids = new List<Nucleotid>()
+            {
                 new Nucleotid()
                 {
                     Sequence = "GGTTT"
@@ -192,9 +184,8 @@ namespace BioInf.Test.Logic
         [Test]
         public void Evaluation_BasicExample6()
         {
-            Global.Nucleotids = new List<Nucleotid>() 
-            { 
-                
+            Global.Nucleotids = new List<Nucleotid>()
+            {
                 new Nucleotid()
                 {
                     Sequence = "QWER"
@@ -217,7 +208,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 1,2,4,3 }
+                sequenceIndexes = new int[] { 1, 2, 4, 3 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(2, result);
@@ -242,11 +233,12 @@ namespace BioInf.Test.Logic
         }
 
         #region DELTA
+
         [Test]
         public void Evaluation_BasicExample_WithDelta()
         {
-            Global.Nucleotids = new List<Nucleotid>() 
-            { 
+            Global.Nucleotids = new List<Nucleotid>()
+            {
                 new Nucleotid()
                 {
                     Sequence = "GCATT"
@@ -290,8 +282,8 @@ namespace BioInf.Test.Logic
         [Test]
         public void Evaluation_BasicExample_WithDelta2()
         {
-            Global.Nucleotids = new List<Nucleotid>() 
-            { 
+            Global.Nucleotids = new List<Nucleotid>()
+            {
                 new Nucleotid()
                 {
                     Sequence = "GCATT"
@@ -340,6 +332,7 @@ namespace BioInf.Test.Logic
             result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(3, result);
         }
-        #endregion
+
+        #endregion DELTA
     }
 }

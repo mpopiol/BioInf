@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BioInf.Model;
+﻿using BioInf.Model;
 using NUnit.Framework;
 
 namespace BioInf.Test
 {
-
     [TestFixture]
     public class NucleotidTest
     {
@@ -20,14 +14,13 @@ namespace BioInf.Test
             nucleotid = new Nucleotid();
         }
 
-
         [Test]
         public void Nucleotid_StartsWith_ReturnsFalse_OnEmptySubSeq()
         {
             nucleotid.Sequence = "ACCCG";
             var testSubstring = "";
             var result = nucleotid.StartsWith(testSubstring);
-            
+
             Assert.False(result);
         }
 

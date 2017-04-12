@@ -1,9 +1,5 @@
 ﻿using BioInf.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BioInf.Logic
 {
@@ -26,7 +22,7 @@ namespace BioInf.Logic
 
         private static void FillBeginning(ref Result result, Result itemToCross, int crossingPoint)
         {
-            for (int i=0; i<crossingPoint; i++)
+            for (int i = 0; i < crossingPoint; i++)
             {
                 result.sequenceIndexes[i] = itemToCross.sequenceIndexes[i];
             }
@@ -36,7 +32,7 @@ namespace BioInf.Logic
         {
             int resultCounter = crossingPoint;
             int itemToCrossCounter = 0;
-            while(resultCounter < itemToCross.sequenceIndexes.Length)
+            while (resultCounter < itemToCross.sequenceIndexes.Length)
             {
                 if (!result.sequenceIndexes.Take(resultCounter).Contains(itemToCross.sequenceIndexes[itemToCrossCounter]))
                 {

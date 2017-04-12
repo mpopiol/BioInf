@@ -46,7 +46,8 @@ namespace BioInf
                 System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}", j, population[0].EvaluationPoints));
             }
         }
-        static void InitData()
+
+        private static void InitData()
         {
             var nucleotids = File.ReadAllLines("200-40.txt");
             var nucleotidList = new List<Nucleotid>();

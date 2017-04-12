@@ -1,9 +1,4 @@
 ﻿using BioInf.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BioInf.Logic
 {
@@ -12,7 +7,7 @@ namespace BioInf.Logic
         public static int Evaluate(Result item)
         {
             int max = 0;
-            for (int i = 0; i<item.sequenceIndexes.Length; i++)
+            for (int i = 0; i < item.sequenceIndexes.Length; i++)
             {
                 int subResult = EvaluationLogic.HandleFromPositionToMax(item, i);
                 if (subResult > max)
@@ -29,7 +24,7 @@ namespace BioInf.Logic
             {
                 position += EvaluationLogic.GetSinglePartialSum(Global.Nucleotids[item.sequenceIndexes[nucleotidsCounter] - 1],
                     Global.Nucleotids[item.sequenceIndexes[nucleotidsCounter + 1] - 1]);
-                if(position <= Global.MaxLength)
+                if (position <= Global.MaxLength)
                     nucleotidsCounter++;
             }
             return nucleotidsCounter + 1 - startingPosition;

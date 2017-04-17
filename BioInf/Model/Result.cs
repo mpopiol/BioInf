@@ -2,7 +2,8 @@
 {
     public class Result
     {
-        public int[] sequenceIndexes { get; set; }
+        public int[] SequenceIndexes { get; set; }
         public int EvaluationPoints { get; set; }
+        public int TotalLength { get; set; }
     }
 }

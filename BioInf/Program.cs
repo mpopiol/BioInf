@@ -1,10 +1,10 @@
-﻿using BioInf.Logic;
-using BioInf.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BioInf.Logic;
+using BioInf.Model;
 
 namespace BioInf
 {
@@ -22,25 +22,27 @@ namespace BioInf
             {
                 population[i] = new Result()
                 {
-                    sequenceIndexes = RandomSolutionLogic.GenerateRandomSolution()
+                    SequenceIndexes = RandomSolutionLogic.GenerateRandomSolution()
                 };
             }
 
-            for (int j = 1; j < 10000; j++)
+            int j = 0;
+            while (!(Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
             {
-                Parallel.For(50, 75, i =>
+                j++;
+                Parallel.For(50, 125, i =>
                 {
                     population[i] = MutationLogic.Mutate(population[Global.Random.Next(49)]);
-                    for (int k = 0; k < (int)(j / 2000); k++)
-                    {
-                        population[i] = MutationLogic.Mutate(population[i]);
-                    }
+                    //for (int k = 0; k < (int)(j / 500); k++)
+                    //{
+                    //    population[i] = MutationLogic.Mutate(population[i]);
+                    //}
                 });
 
-                Parallel.For(75, 200, i =>
+                Parallel.For(125, 200, i =>
                 {
                     population[i] = CrossingLogic.Cross(population[Global.Random.Next(49)], population[Global.Random.Next(49)]);
-                    //for (int k = 0; k < (int)(j / 100); k++)
+                    //for (int k = 0; k < (int)(j / 1500); k++)
                     //{
                     //    population[i] = CrossingLogic.Cross(population[i], population[Global.Random.Next(49)]);
                     //}
@@ -49,6 +51,7 @@ namespace BioInf
                 Parallel.For(0, 200, i =>
                 {
                     population[i].EvaluationPoints = EvaluationLogic.Evaluate(population[i]);
+                    population[i].TotalLength = EvaluationLogic.GetTotalLength(population[i]);
                 });
 
                 //if (population[0].sequenceIndexes.Length != population[0].sequenceIndexes.Distinct().Count())
@@ -56,25 +59,34 @@ namespace BioInf
                 //    System.Console.WriteLine("DUPLICATE!");
                 //}
 
-                population = population.OrderBy(p => p.EvaluationPoints * -1).ToArray();
+                population = population.OrderBy(p => p.EvaluationPoints * -1).ThenBy(p => p.TotalLength).ToArray();
+                System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}, MinLength: {2}", j, population.Max(p => p.EvaluationPoints), population.Min(p => p.TotalLength)));
 
-                //for (int i = 45; i < 50; i++)
-                //{
-                //    population[i] = population[Global.Random.Next(50, 199)];
-                //}
-
-                System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}", j, population[0].EvaluationPoints));
-
-                streamWriter.WriteLine(String.Format("{0};{1}", j, population[0].EvaluationPoints));
+                //streamWriter.WriteLine(String.Format("{0};{1}", j, population[0].EvaluationPoints)); //for plot
             }
             streamWriter.WriteLine("");
             streamWriter.WriteLine("");
             streamWriter.WriteLine("");
             streamWriter.WriteLine("");
 
-            for (int i = 0; i < population[0].sequenceIndexes.Length; i++)
+            streamWriter.WriteLine("************ Result ************");
+            WriteResult(streamWriter, population[0]);
+
+            streamWriter.Close();
+        }
+
+        private static void WriteResult(StreamWriter streamWriter, Result result)
+        {
+            int offset = 0;
+            streamWriter.WriteLine(Global.Nucleotids[result.SequenceIndexes[0] - 1].Sequence);
+            for (int i = 0; i < result.SequenceIndexes.Length - 1; i++)
             {
-                streamWriter.WriteLine(Global.Nucleotids[population[0].sequenceIndexes[i] - 1].Sequence);
+                offset += EvaluationLogic.GetSinglePartialSum(Global.Nucleotids[result.SequenceIndexes[i] - 1], Global.Nucleotids[result.SequenceIndexes[i + 1] - 1]);
+                for (int j = 0; j < offset; j++)
+                {
+                    streamWriter.Write(" ");
+                }
+                streamWriter.Write(Global.Nucleotids[result.SequenceIndexes[i + 1] - 1].Sequence + "\r\n");
             }
         }
 

@@ -1,7 +1,7 @@
-﻿using BioInf.Logic;
+﻿using System.Collections.Generic;
+using BioInf.Logic;
 using BioInf.Model;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace BioInf.Test.Logic
 {
@@ -35,7 +35,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 4, 3, 2, 1 }
+                SequenceIndexes = new int[] { 4, 3, 2, 1 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(4, result);
@@ -68,7 +68,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 4, 3, 2, 1 }
+                SequenceIndexes = new int[] { 4, 3, 2, 1 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(3, result);
@@ -101,7 +101,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 4, 3, 2, 1 }
+                SequenceIndexes = new int[] { 4, 3, 2, 1 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(2, result);
@@ -138,7 +138,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 4, 5, 1, 2, 3 }
+                SequenceIndexes = new int[] { 4, 5, 1, 2, 3 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(3, result);
@@ -175,7 +175,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 3, 4, 5, 1, 2 }
+                SequenceIndexes = new int[] { 3, 4, 5, 1, 2 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(2, result);
@@ -208,7 +208,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 1, 2, 4, 3 }
+                SequenceIndexes = new int[] { 1, 2, 4, 3 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(2, result);
@@ -217,7 +217,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             res = new Result()
             {
-                sequenceIndexes = new int[] { 1, 2, 4, 3 }
+                SequenceIndexes = new int[] { 1, 2, 4, 3 }
             };
             result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(2, result);
@@ -226,7 +226,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 0;
             res = new Result()
             {
-                sequenceIndexes = new int[] { 1, 2, 4, 3 }
+                SequenceIndexes = new int[] { 1, 2, 4, 3 }
             };
             result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(1, result);
@@ -273,7 +273,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 1;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 1, 2, 3, 4, 5, 6, 7 }
+                SequenceIndexes = new int[] { 1, 2, 3, 4, 5, 6, 7 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(4, result);
@@ -318,7 +318,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 1;
             Result res = new Result()
             {
-                sequenceIndexes = new int[] { 1, 2, 3, 4, 5, 6, 7 }
+                SequenceIndexes = new int[] { 1, 2, 3, 4, 5, 6, 7 }
             };
             var result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(3, result);
@@ -327,7 +327,7 @@ namespace BioInf.Test.Logic
             Global.ErrorToleration = 1;
             res = new Result()
             {
-                sequenceIndexes = new int[] { 1, 2, 3, 4, 5, 6, 7 }
+                SequenceIndexes = new int[] { 1, 2, 3, 4, 5, 6, 7 }
             };
             result = EvaluationLogic.Evaluate(res);
             Assert.AreEqual(3, result);

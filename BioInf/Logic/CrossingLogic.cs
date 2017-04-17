@@ -1,5 +1,5 @@
-﻿using BioInf.Model;
-using System.Linq;
+﻿using System.Linq;
+using BioInf.Model;
 
 namespace BioInf.Logic
 {
@@ -9,24 +9,24 @@ namespace BioInf.Logic
         {
             Result result = new Result()
             {
-                sequenceIndexes = new int[item1.sequenceIndexes.Length]
+                SequenceIndexes = new int[item1.SequenceIndexes.Length]
             };
 
-            int crossingPoint = Global.Random.Next(item1.sequenceIndexes.Length / 6, 5 * item1.sequenceIndexes.Length / 6);
+            int crossingPoint = Global.Random.Next(item1.SequenceIndexes.Length / 20, 19 * item1.SequenceIndexes.Length / 20);
 
             if (Global.Random.Next() % 2 == 0)
             {
-                FillBeginning(ref result, item1.sequenceIndexes, crossingPoint);
-                FillEnding(ref result, item2.sequenceIndexes, crossingPoint);
+                FillBeginning(ref result, item1.SequenceIndexes, crossingPoint);
+                FillEnding(ref result, item2.SequenceIndexes, crossingPoint);
 
                 return result;
             }
             else
             {
-                FillBeginning(ref result, item1.sequenceIndexes.Reverse().ToArray(), crossingPoint);
-                FillEnding(ref result, item2.sequenceIndexes.Reverse().ToArray(), crossingPoint);
+                FillBeginning(ref result, item1.SequenceIndexes.Reverse().ToArray(), crossingPoint);
+                FillEnding(ref result, item2.SequenceIndexes.Reverse().ToArray(), crossingPoint);
 
-                result.sequenceIndexes = result.sequenceIndexes.Reverse().ToArray();
+                result.SequenceIndexes = result.SequenceIndexes.Reverse().ToArray();
 
                 return result;
             }
@@ -36,7 +36,7 @@ namespace BioInf.Logic
         {
             for (int i = 0; i < crossingPoint; i++)
             {
-                result.sequenceIndexes[i] = sequence[i];
+                result.SequenceIndexes[i] = sequence[i];
             }
         }
 
@@ -46,9 +46,9 @@ namespace BioInf.Logic
             int itemToCrossCounter = 0;
             while (resultCounter < sequence.Length)
             {
-                if (!result.sequenceIndexes.Take(resultCounter).Contains(sequence[itemToCrossCounter]))
+                if (!result.SequenceIndexes.Take(resultCounter).Contains(sequence[itemToCrossCounter]))
                 {
-                    result.sequenceIndexes[resultCounter++] = sequence[itemToCrossCounter];
+                    result.SequenceIndexes[resultCounter++] = sequence[itemToCrossCounter];
                 }
                 itemToCrossCounter++;
             }

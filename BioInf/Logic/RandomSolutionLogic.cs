@@ -1,5 +1,5 @@
-﻿using BioInf.Model;
-using System.Linq;
+﻿using System.Linq;
+using BioInf.Model;
 
 namespace BioInf.Logic
 {

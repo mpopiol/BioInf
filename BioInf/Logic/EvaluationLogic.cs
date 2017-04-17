@@ -7,7 +7,7 @@ namespace BioInf.Logic
         public static int Evaluate(Result item)
         {
             int max = 0;
-            for (int i = 0; i < item.sequenceIndexes.Length; i++)
+            for (int i = 0; i < item.SequenceIndexes.Length; i++)
             {
                 int subResult = EvaluationLogic.HandleFromPositionToMax(item, i);
                 if (subResult > max)
@@ -16,21 +16,32 @@ namespace BioInf.Logic
             return max;
         }
 
+        public static int GetTotalLength(Result item)
+        {
+            int result = 0;
+            for (int i = 0; i < item.SequenceIndexes.Length - 1; i++)
+            {
+                result += EvaluationLogic.GetSinglePartialSum(Global.Nucleotids[item.SequenceIndexes[i] - 1],
+                    Global.Nucleotids[item.SequenceIndexes[i + 1] - 1]);
+            }
+            return result;
+        }
+
         private static int HandleFromPositionToMax(Result item, int startingPosition)
         {
             int position = Global.Nucleotids[0].Sequence.Length;
             int nucleotidsCounter = startingPosition;
-            while (nucleotidsCounter < item.sequenceIndexes.Length - 1 && position < Global.MaxLength)
+            while (nucleotidsCounter < item.SequenceIndexes.Length - 1 && position < Global.MaxLength)
             {
-                position += EvaluationLogic.GetSinglePartialSum(Global.Nucleotids[item.sequenceIndexes[nucleotidsCounter] - 1],
-                    Global.Nucleotids[item.sequenceIndexes[nucleotidsCounter + 1] - 1]);
+                position += EvaluationLogic.GetSinglePartialSum(Global.Nucleotids[item.SequenceIndexes[nucleotidsCounter] - 1],
+                    Global.Nucleotids[item.SequenceIndexes[nucleotidsCounter + 1] - 1]);
                 if (position <= Global.MaxLength)
                     nucleotidsCounter++;
             }
             return nucleotidsCounter + 1 - startingPosition;
         }
 
-        private static int GetSinglePartialSum(Nucleotid parentNucleotid, Nucleotid childNucleotid)
+        public static int GetSinglePartialSum(Nucleotid parentNucleotid, Nucleotid childNucleotid)
         {
             int result = 1;
             while (!childNucleotid.StartsWith(parentNucleotid.Sequence.Substring(result), Global.ErrorToleration) && result < parentNucleotid.Sequence.Length)

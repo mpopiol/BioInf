@@ -12,7 +12,7 @@ namespace BioInf.Logic
             {
                 result[i] = i + 1;
             }
-            //now shuffle
+
             return result.OrderBy(i => Global.Random.Next()).ToArray();
         }
     }

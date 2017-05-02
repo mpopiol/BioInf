@@ -16,8 +16,8 @@ namespace BioInf
 
             int instanceSize = 200;
             int populationSize = 50;
-            float maxMutationPercentage = 0.85f;
-            float mutationPercentage = 0.1f;
+            //float maxMutationPercentage = 0.85f;
+            float mutationPercentage = 0.6f;
             int mutationsPlusCrossing = instanceSize - populationSize;
 
             var streamWriter = new StreamWriter("output.txt");
@@ -37,27 +37,19 @@ namespace BioInf
             {
                 j++;
 
-                if (j % 100 == 0 && mutationPercentage < maxMutationPercentage)
-                    mutationPercentage += 0.01f;
+                //if (j % 100 == 0 && mutationPercentage < maxMutationPercentage)
+                //    mutationPercentage += 0.05f;
 
                 int mutations = (int)(mutationsPlusCrossing * mutationPercentage);
 
                 Parallel.For(populationSize, populationSize + mutations, i =>
                 {
                     population[i] = MutationLogic.Mutate(population[Global.Random.Next(populationSize - 1)]);
-                    //for (int k = 0; k < (int)(j / 500); k++)
-                    //{
-                    //    population[i] = MutationLogic.Mutate(population[i]);
-                    //}
                 });
 
                 Parallel.For(populationSize + mutations, instanceSize, i =>
                 {
                     population[i] = CrossingLogic.Cross(population[Global.Random.Next(populationSize - 1)], population[Global.Random.Next(populationSize - 1)]);
-                    //for (int k = 0; k < (int)(j / 1500); k++)
-                    //{
-                    //    population[i] = CrossingLogic.Cross(population[i], population[Global.Random.Next(49)]);
-                    //}
                 });
 
                 Parallel.For(0, instanceSize, i =>
@@ -71,7 +63,8 @@ namespace BioInf
                 //    System.Console.WriteLine("DUPLICATE!");
                 //}
 
-                population = population.OrderBy(p => p.EvaluationPoints * -1).ThenBy(p => p.TotalLength).ToArray();
+                //population = population.OrderBy(p => p.EvaluationPoints * -1).ThenBy(p => p.TotalLength).ToArray();
+                TournamentLogic.Execute(ref population);
                 System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}, MinLength: {2}", j, population.Max(p => p.EvaluationPoints), population.Min(p => p.TotalLength)));
 
                 //streamWriter.WriteLine(String.Format("{0};{1}", j, population[0].EvaluationPoints)); //for plot
@@ -114,7 +107,7 @@ namespace BioInf
                 };
                 nucleotidList.Add(nucl);
             }
-            Global.ErrorToleration = 2;
+            Global.ErrorToleration = 0;
             Global.MaxLength = 209;
             Global.Nucleotids = nucleotidList;
         }

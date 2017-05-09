@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using BioInf.Model;
+using System;
+using System.Collections.Generic;
 
 namespace BioInf.Logic
 {
@@ -12,7 +14,7 @@ namespace BioInf.Logic
                 SequenceIndexes = new int[item1.SequenceIndexes.Length]
             };
 
-            int crossingPoint = Global.Random.Next(item1.SequenceIndexes.Length, item1.SequenceIndexes.Length);
+            int crossingPoint = Global.Random.Next((int)Math.Floor(item1.SequenceIndexes.Length * 0.1), (int)Math.Floor(item1.SequenceIndexes.Length * 0.9));
 
             if (Global.Random.Next() % 2 == 0)
             {
@@ -52,6 +54,73 @@ namespace BioInf.Logic
                 }
                 itemToCrossCounter++;
             }
+        }
+
+        public static Result Cross2Points(Result item1, Result item2)
+        {
+            Result result = new Result()
+            {
+                SequenceIndexes = new int[item1.SequenceIndexes.Length]
+            };
+
+            int crossingPoint1 = Global.Random.Next((int)(item1.SequenceIndexes.Length * 0.6));
+            int crossingPoint2 = Global.Random.Next(crossingPoint1, (int)(item1.SequenceIndexes.Length));
+            FillSequenceBetweenPoints(result, item1.SequenceIndexes, crossingPoint1, crossingPoint2);
+
+            List<int> order = GetFillOrderFromSequence(result, item2.SequenceIndexes, crossingPoint2);
+
+            FillResultFromOrder(result, crossingPoint1, crossingPoint2, order);
+
+            return result;
+        }
+
+        private static void FillSequenceBetweenPoints(Result result, int[] sequence, int crossingPoint1, int crossingPoint2)
+        {
+            for (int i = crossingPoint1; i < crossingPoint2; i++)
+            {
+                result.SequenceIndexes[i] = sequence[i];
+            }
+        }
+
+        private static List<int> GetFillOrderFromSequence(Result result, int[] sequence, int crossingPoint2)
+        {
+            var order = new List<int>();
+
+            for (int i = crossingPoint2; i < sequence.Length; i++)
+            {
+                if (!result.SequenceIndexes.Contains(sequence[i]))
+                {
+                    order.Add(sequence[i]);
+                }
+            }
+            for (int i = 0; i < crossingPoint2; i++)
+            {
+                if (!result.SequenceIndexes.Contains(sequence[i]))
+                {
+                    order.Add(sequence[i]);
+                }
+            }
+
+            return order;
+        }
+
+        private static void FillResultFromOrder(Result result, int crossingPoint1, int crossingPoint2, List<int> order)
+        {
+            for (int i = crossingPoint2; i < result.SequenceIndexes.Length; i++)
+            {
+                FillResultItemFromOrder(result, i, order);
+            }
+            for (int i = 0; i < crossingPoint1; i++)
+            {
+                FillResultItemFromOrder(result, i, order);
+            }
+        }
+
+        private static void FillResultItemFromOrder(Result result, int i, List<int> order)
+        {
+            var chosenNucleotid = order.FirstOrDefault();
+            result.SequenceIndexes[i] = chosenNucleotid;
+            order.Remove(chosenNucleotid);
         }
     }
 }

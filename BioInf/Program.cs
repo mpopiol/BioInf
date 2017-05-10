@@ -24,7 +24,7 @@ namespace BioInf
 
             Result[] population = new Result[instanceSize];
 
-            for (int i = 0; i < populationSize; i++)
+            for (int i = 0; i < instanceSize; i++)
             {
                 population[i] = new Result()
                 {
@@ -44,8 +44,10 @@ namespace BioInf
 
                 Parallel.For(populationSize, populationSize + mutations, i =>
                 {
-                    population[i] = MutationLogic.Mutate(population[Global.Random.Next(populationSize - 1)]);
+                    population[i] = MutationLogic.GreedMutate(population[Global.Random.Next(populationSize - 1)]);
                 });
+
+                //TournamentLogic.Execute(ref population, population.Length);
 
                 Parallel.For(populationSize + mutations, instanceSize, i =>
                 {
@@ -64,8 +66,9 @@ namespace BioInf
                 //}
 
                 //population = population.OrderBy(p => p.EvaluationPoints * -1).ThenBy(p => p.TotalLength).ToArray();
-                TournamentLogic.Execute(ref population);
-                System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}, MinLength: {2}", j, population.Max(p => p.EvaluationPoints), population.Min(p => p.TotalLength)));
+                TournamentLogic.Execute(ref population, population.Length);
+                var item = population.Where(p => p.EvaluationPoints == population.Max(x => x.EvaluationPoints)).First();
+                System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}, MinLength: {2}, BadGuys: {3}", j, population.Max(p => p.EvaluationPoints), population.Min(p => p.TotalLength), EvaluationLogic.GetWeakConnectedNucleotidIndexes(item).Count));
 
                 //streamWriter.WriteLine(String.Format("{0};{1}", j, population[0].EvaluationPoints)); //for plot
             }

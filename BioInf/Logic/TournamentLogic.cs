@@ -9,11 +9,13 @@ namespace BioInf.Logic
 {
     public class TournamentLogic
     {
-        public static void Execute(ref Result[] input, int singleTournamentSize = 4)
+        public static void Execute(ref Result[] input, int tournamentSize, int singleTournamentSize = 4)
         {
-            Result[] randomOrder = input.OrderBy(s => Global.Random.Next()).ToArray();
-            Result[] results = new Result[input.Length / singleTournamentSize];
-            for (int i = 0; i < input.Length - 1; i+=singleTournamentSize)
+            var slicedInput = input.Take(tournamentSize).ToArray();
+
+            Result[] randomOrder = slicedInput.OrderBy(s => Global.Random.Next()).ToArray();
+            Result[] results = new Result[slicedInput.Length / singleTournamentSize];
+            for (int i = 0; i < slicedInput.Length - 1; i+=singleTournamentSize)
             {
                 var bestResult = randomOrder[i];
                 for (int j = 1; j < singleTournamentSize; j++)
@@ -26,7 +28,7 @@ namespace BioInf.Logic
                 results[i / singleTournamentSize] = bestResult;
             }
 
-            for(int i = 0; i < input.Length / singleTournamentSize; i++)
+            for(int i = 0; i < slicedInput.Length / singleTournamentSize; i++)
             {
                 input[i] = results[i];
             }

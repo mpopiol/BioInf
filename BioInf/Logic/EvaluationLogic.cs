@@ -1,4 +1,6 @@
-﻿using BioInf.Model;
+﻿using System;
+using BioInf.Model;
+using System.Collections.Generic;
 
 namespace BioInf.Logic
 {
@@ -14,6 +16,22 @@ namespace BioInf.Logic
                     max = subResult;
             }
             return max;
+        }
+
+        public static List<Tuple<int, int>> GetWeakConnectedNucleotidIndexes(Result item)
+        {
+            var results = new List<Tuple<int, int>>();
+
+            for (int i = 1; i < item.SequenceIndexes.Length-1; i++)
+            {
+                int distanceLeft = EvaluationLogic.GetSinglePartialSum(Global.Nucleotids[item.SequenceIndexes[i - 1] - 1], Global.Nucleotids[item.SequenceIndexes[i] - 1]);
+                int distanceRight = EvaluationLogic.GetSinglePartialSum(Global.Nucleotids[item.SequenceIndexes[i] - 1], Global.Nucleotids[item.SequenceIndexes[i + 1] - 1]);
+
+                if (distanceLeft + distanceRight >= Global.Nucleotids[0].Sequence.Length)
+                    results.Add(new Tuple<int, int>(i, distanceLeft + distanceRight));
+            }
+
+            return results;
         }
 
         public static int GetTotalLength(Result item)

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BioInf.Logic;
+using BioInf.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using BioInf.Logic;
-using BioInf.Model;
 
 namespace BioInf
 {
@@ -26,10 +26,7 @@ namespace BioInf
 
             for (int i = 0; i < instanceSize; i++)
             {
-                population[i] = new Result()
-                {
-                    SequenceIndexes = RandomSolutionLogic.GenerateRandomSolution()
-                };
+                population[i] = RandomSolutionLogic.GenerateRandomSolution();
             }
 
             int j = 0;
@@ -41,6 +38,9 @@ namespace BioInf
                 //    mutationPercentage += 0.05f;
 
                 int mutations = (int)(mutationsPlusCrossing * mutationPercentage);
+
+                //if (j % 100 == 0)
+                    population[25] = RandomSolutionLogic.GenerateGreedySolution();
 
                 Parallel.For(populationSize, populationSize + mutations, i =>
                 {
@@ -67,15 +67,12 @@ namespace BioInf
 
                 //population = population.OrderBy(p => p.EvaluationPoints * -1).ThenBy(p => p.TotalLength).ToArray();
                 TournamentLogic.Execute(ref population, population.Length);
+
                 var item = population.Where(p => p.EvaluationPoints == population.Max(x => x.EvaluationPoints)).First();
                 System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}, MinLength: {2}, BadGuys: {3}", j, population.Max(p => p.EvaluationPoints), population.Min(p => p.TotalLength), EvaluationLogic.GetWeakConnectedNucleotidIndexes(item).Count));
 
                 //streamWriter.WriteLine(String.Format("{0};{1}", j, population[0].EvaluationPoints)); //for plot
             }
-            streamWriter.WriteLine("");
-            streamWriter.WriteLine("");
-            streamWriter.WriteLine("");
-            streamWriter.WriteLine("");
 
             streamWriter.WriteLine("************ Result ************");
             WriteResult(streamWriter, population[0]);

@@ -17,11 +17,13 @@ namespace BioInf.Logic
 
             var nucleotidIndexes = EvaluationLogic.GetWeakConnectedNucleotidIndexes(item).OrderByDescending(n => n.Item2).ToArray();
 
-            if (nucleotidIndexes.Length >= 2)
+            if (nucleotidIndexes.Length >= 10)
             {
-                int tmp = result.SequenceIndexes[nucleotidIndexes[0].Item1];
-                result.SequenceIndexes[nucleotidIndexes[0].Item1] = result.SequenceIndexes[nucleotidIndexes[1].Item1];
-                result.SequenceIndexes[nucleotidIndexes[1].Item1] = tmp;
+                int firstIndex = Global.Random.Next(10);
+                int secondIndex = Global.Random.Next(Global.Nucleotids.Count);
+                int tmp = result.SequenceIndexes[firstIndex];
+                result.SequenceIndexes[firstIndex] = result.SequenceIndexes[secondIndex];
+                result.SequenceIndexes[secondIndex] = tmp;
             }
             else
             {

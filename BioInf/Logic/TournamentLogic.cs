@@ -20,7 +20,7 @@ namespace BioInf.Logic
                 var bestResult = randomOrder[i];
                 for (int j = 1; j < singleTournamentSize; j++)
                 {
-                    if (randomOrder[i + j].EvaluationPoints > bestResult.EvaluationPoints || (randomOrder[i + j].EvaluationPoints == bestResult.EvaluationPoints && randomOrder[i + j].TotalLength < bestResult.TotalLength))
+                    if (randomOrder[i + j].EvaluationPoints > bestResult.EvaluationPoints || (randomOrder[i + j].EvaluationPoints == bestResult.EvaluationPoints && randomOrder[i + j].TotalLength < bestResult.TotalLength) || (randomOrder[i + j].EvaluationPoints == bestResult.EvaluationPoints && EvaluationLogic.GetWeakConnectedNucleotidIndexes(bestResult).Count > EvaluationLogic.GetWeakConnectedNucleotidIndexes(randomOrder[i + j]).Count))
                     {
                         bestResult = randomOrder[i + j];
                     }

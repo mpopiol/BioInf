@@ -12,11 +12,13 @@ namespace BioInf
     {
         private static void Main(string[] args)
         {
-            int iterations = 1000;
+            int iterations = 10000;
+            int repetitionsPerFile = 3;
+
             int instanceSize = 200;
             int populationSize = 50;
             //float maxMutationPercentage = 0.85f;
-            float mutationPercentage = 0.6f;
+            float mutationPercentage = 0.5f;
             int mutationsPlusCrossing = instanceSize - populationSize;
             int mutations = (int)(mutationsPlusCrossing * mutationPercentage);
 
@@ -34,7 +36,7 @@ namespace BioInf
 
                 var dateBefore = DateTime.Now;
 
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < repetitionsPerFile; i++)
                 {
                     Result[] population = new Result[instanceSize];
 
@@ -45,8 +47,8 @@ namespace BioInf
 
                     for (int j = 0; j < iterations; j++)
                     {
-                        if (j  == 800)
-                            population[25] = RandomSolutionLogic.GenerateGreedySolution();
+                        //if (j  == 800)
+                        //    population[25] = RandomSolutionLogic.GenerateGreedySolution();
 
                         Parallel.For(populationSize, populationSize + mutations, k =>
                         {
@@ -55,7 +57,10 @@ namespace BioInf
 
                         Parallel.For(populationSize + mutations, instanceSize, k =>
                         {
-                            population[k] = CrossingLogic.Cross(population[StaticRandom.Rand(populationSize - 1)], population[StaticRandom.Rand(populationSize - 1)]);
+                            if (StaticRandom.Rand() % 2 == 0)
+                                population[k] = CrossingLogic.Cross(population[StaticRandom.Rand(populationSize - 1)], population[StaticRandom.Rand(populationSize - 1)]);
+                            else
+                                population[k] = CrossingLogic.Cross2Points(population[StaticRandom.Rand(populationSize - 1)], population[StaticRandom.Rand(populationSize - 1)]);
                         });
 
                         Parallel.For(0, instanceSize, k =>
@@ -83,10 +88,11 @@ namespace BioInf
                 streamWriter.WriteLine();
                 for (int i = 0; i < iterations; i++)
                 {
-                    streamWriter.Write((results[i]/5).ToString() + ";");
+                    streamWriter.Write((results[i] / repetitionsPerFile).ToString() + ";");
                 }
                 streamWriter.WriteLine();
                 streamWriter.WriteLine(String.Format("{0}:{1}:{2}", duration.Minutes, duration.Seconds, duration.Milliseconds));
+                streamWriter.Flush();
                 //streamWriter.WriteLine("************ Result ************");
                 //WriteResult(streamWriter, population[0]);
             }

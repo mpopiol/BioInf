@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BioInf
@@ -26,9 +27,14 @@ namespace BioInf
             var directoryInfo = new DirectoryInfo(Environment.CurrentDirectory += "\\Data");
             var textFiles = directoryInfo.GetFiles("*.txt");
 
+            int fileCount = 0;
             foreach (var textFile in textFiles)
             {
-                InitData(textFile.FullName);
+                Regex rgx = new Regex("^([0-9]{1,2}).([0-9]{3})");
+                MatchCollection matches = rgx.Matches(textFile.Name);
+                int windowLength = int.Parse(matches[0].Groups[2].ToString()) + 9;
+
+                InitData(textFile.FullName, windowLength);
 
                 //var streamWriter = new StreamWriter("output.txt");
 
@@ -72,11 +78,13 @@ namespace BioInf
                         TournamentLogic.Execute(ref population, population.Length);
 
                         var item = population.Where(p => p.EvaluationPoints == population.Max(x => x.EvaluationPoints)).First();
-                        System.Console.WriteLine(String.Format("Iteration: {0}, Max: {1}, MinLength: {2}, BadGuys: {3}", j, population.Max(p => p.EvaluationPoints), population.Min(p => p.TotalLength), EvaluationLogic.GetWeakConnectedNucleotidIndexes(item).Count));
+                        System.Console.WriteLine(String.Format("File {0}/{1} Iteration: {2}, Max: {3}, MinLength: {4}, BadGuys: {5}", fileCount, textFiles.Count(), j, population.Max(p => p.EvaluationPoints), population.Min(p => p.TotalLength), EvaluationLogic.GetWeakConnectedNucleotidIndexes(item).Count));
 
                         results[j] += population.Max(p => p.EvaluationPoints);
                     }
                 }
+
+                fileCount++;
 
                 TimeSpan duration = new TimeSpan((DateTime.Now - dateBefore).Ticks / 5);
 
@@ -114,7 +122,7 @@ namespace BioInf
             }
         }
 
-        private static void InitData(string fileName)
+        private static void InitData(string fileName, int windowLength)
         {
             var nucleotids = File.ReadAllLines(fileName);
             var nucleotidList = new List<Nucleotid>();
@@ -127,7 +135,7 @@ namespace BioInf
                 nucleotidList.Add(nucl);
             }
             Global.ErrorToleration = 0;
-            Global.MaxLength = 209;
+            Global.MaxLength = windowLength;
             Global.Nucleotids = nucleotidList;
         }
     }

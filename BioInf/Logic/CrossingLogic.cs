@@ -14,9 +14,9 @@ namespace BioInf.Logic
                 SequenceIndexes = new int[item1.SequenceIndexes.Length]
             };
 
-            int crossingPoint = Global.Random.Next((int)Math.Floor(item1.SequenceIndexes.Length * 0.1), (int)Math.Floor(item1.SequenceIndexes.Length * 0.9));
+            int crossingPoint = StaticRandom.Rand((int)Math.Floor(item1.SequenceIndexes.Length * 0.1), (int)Math.Floor(item1.SequenceIndexes.Length * 0.9));
 
-            if (Global.Random.Next() % 2 == 0)
+            if (StaticRandom.Rand() % 2 == 0)
             {
                 FillBeginning(ref result, item1.SequenceIndexes, crossingPoint);
                 FillEnding(ref result, item2.SequenceIndexes, crossingPoint);
@@ -63,8 +63,8 @@ namespace BioInf.Logic
                 SequenceIndexes = new int[item1.SequenceIndexes.Length]
             };
 
-            int crossingPoint1 = Global.Random.Next((int)(item1.SequenceIndexes.Length * 0.6));
-            int crossingPoint2 = Global.Random.Next(crossingPoint1, (int)(item1.SequenceIndexes.Length));
+            int crossingPoint1 = StaticRandom.Rand((int)(item1.SequenceIndexes.Length * 0.6));
+            int crossingPoint2 = StaticRandom.Rand(crossingPoint1, (int)(item1.SequenceIndexes.Length));
             FillSequenceBetweenPoints(result, item1.SequenceIndexes, crossingPoint1, crossingPoint2);
 
             List<int> order = GetFillOrderFromSequence(result, item2.SequenceIndexes, crossingPoint2);

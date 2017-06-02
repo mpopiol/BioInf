@@ -12,15 +12,15 @@ namespace BioInf.Logic
                 SequenceIndexes = item.SequenceIndexes.ToArray()
             };
 
-            if (Global.Random.Next() % 2 == 0)
+            if (StaticRandom.Rand() % 2 == 0)
                 return MutationLogic.Mutate(item);
 
             var nucleotidIndexes = EvaluationLogic.GetWeakConnectedNucleotidIndexes(item).OrderByDescending(n => n.Item2).ToArray();
 
             if (nucleotidIndexes.Length >= 10)
             {
-                int firstIndex = Global.Random.Next(10);
-                int secondIndex = Global.Random.Next(Global.Nucleotids.Count);
+                int firstIndex = StaticRandom.Rand(10);
+                int secondIndex = StaticRandom.Rand(Global.Nucleotids.Count);
                 int tmp = result.SequenceIndexes[firstIndex];
                 result.SequenceIndexes[firstIndex] = result.SequenceIndexes[secondIndex];
                 result.SequenceIndexes[secondIndex] = tmp;
@@ -40,8 +40,8 @@ namespace BioInf.Logic
                 SequenceIndexes = item.SequenceIndexes.ToArray()
             };
 
-            int index1 = Global.Random.Next(result.SequenceIndexes.Length - 1);
-            int index2 = Global.Random.Next(result.SequenceIndexes.Length - 1);
+            int index1 = StaticRandom.Rand(result.SequenceIndexes.Length - 1);
+            int index2 = StaticRandom.Rand(result.SequenceIndexes.Length - 1);
 
             int tmp = result.SequenceIndexes[index1];
             result.SequenceIndexes[index1] = result.SequenceIndexes[index2];

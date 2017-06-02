@@ -50,12 +50,12 @@ namespace BioInf
 
                         Parallel.For(populationSize, populationSize + mutations, k =>
                         {
-                            population[k] = MutationLogic.GreedMutate(population[Global.Random.Next(populationSize - 1)]);
+                            population[k] = MutationLogic.GreedMutate(population[StaticRandom.Rand(populationSize - 1)]);
                         });
 
                         Parallel.For(populationSize + mutations, instanceSize, k =>
                         {
-                            population[k] = CrossingLogic.Cross(population[Global.Random.Next(populationSize - 1)], population[Global.Random.Next(populationSize - 1)]);
+                            population[k] = CrossingLogic.Cross(population[StaticRandom.Rand(populationSize - 1)], population[StaticRandom.Rand(populationSize - 1)]);
                         });
 
                         Parallel.For(0, instanceSize, k =>

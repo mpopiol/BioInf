@@ -17,7 +17,7 @@ namespace BioInf.Logic
 
             return new Result()
             {
-                SequenceIndexes = result.OrderBy(i => Global.Random.Next()).ToArray()
+                SequenceIndexes = result.OrderBy(i => StaticRandom.Rand()).ToArray()
             };
         }
 
@@ -26,7 +26,7 @@ namespace BioInf.Logic
             IList<int> sequence = new List<int>();
             IList<int> notUsed = Enumerable.Range(0, Global.Nucleotids.Count).ToList();
 
-            int starting = Global.Random.Next(Global.Nucleotids.Count - 1);
+            int starting = StaticRandom.Rand(Global.Nucleotids.Count - 1);
             sequence.Add(starting);
             notUsed.Remove(starting);
 

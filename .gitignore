@@ -261,3 +261,8 @@ __pycache__/
 *.pyc
 /BioInf/.sonarqube/conf
 /BioInf/.sonarqube/conf
+/BioInf/.sonarqube/out
+/BioInf/.sonarqube/out/summary.md
+/BioInf/.sonarqube/out/sonar-project.properties
+/BioInf/.sonarqube/out/BioInf_9297
+/BioInf/.sonarqube/out/.sonar

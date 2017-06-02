@@ -13,7 +13,7 @@ namespace BioInf.Logic
         {
             var slicedInput = input.Take(tournamentSize).ToArray();
 
-            Result[] randomOrder = slicedInput.OrderBy(s => Global.Random.Next()).ToArray();
+            Result[] randomOrder = slicedInput.OrderBy(s => StaticRandom.Rand()).ToArray();
             Result[] results = new Result[slicedInput.Length / singleTournamentSize];
             for (int i = 0; i < slicedInput.Length - 1; i+=singleTournamentSize)
             {

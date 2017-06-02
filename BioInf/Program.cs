@@ -78,7 +78,7 @@ namespace BioInf
                         TournamentLogic.Execute(ref population, population.Length);
 
                         var item = population.Where(p => p.EvaluationPoints == population.Max(x => x.EvaluationPoints)).First();
-                        System.Console.WriteLine(String.Format("File {0}/{1} Iteration: {2}, Max: {3}, MinLength: {4}, BadGuys: {5}", fileCount, textFiles.Count(), j, population.Max(p => p.EvaluationPoints), population.Min(p => p.TotalLength), EvaluationLogic.GetWeakConnectedNucleotidIndexes(item).Count));
+                        System.Console.WriteLine(String.Format("File {0}/{1} Iteration: {2}, Max: {3}/{4}, MinLength: {5}, BadGuys: {6}", fileCount, textFiles.Count(), j, population.Max(p => p.EvaluationPoints), Global.MaxLength, population.Min(p => p.TotalLength), EvaluationLogic.GetWeakConnectedNucleotidIndexes(item).Count));
 
                         results[j] += population.Max(p => p.EvaluationPoints);
                     }
